@@ -5,12 +5,15 @@ const mongoose = require("mongoose");
 
 const graphQlSchema = require("./graphql/schema/index");
 const graphQlResolvers = require("./graphql/resolvers/index");
-
+const isAuth = require('./middleware/isAuth');
 const app = express();
 
 app.use(bodyParser.json());
 
 // const events = [];
+
+// Authentication middleware
+app.use(isAuth);
 
 app.use(
   "/graphql",
@@ -33,6 +36,7 @@ mongoose
     app.listen(3000);
   })
   .catch(err => {
+    console.log("Error connecting to mongo");
     console.log(err);
   });
 
