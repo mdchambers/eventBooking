@@ -33,7 +33,7 @@ const mongoURL = `mongodb+srv://${mongoUser}:${mongoPwd}@event-site-xfhq5.mongod
 mongoose
   .connect(mongoURL, { useNewUrlParser: true })
   .then(() => {
-    app.listen(3000);
+    app.listen(8000);
   })
   .catch(err => {
     console.log("Error connecting to mongo");

@@ -1,0 +1,19 @@
+{
+	"query": "query { login(email: \"test@test.com\", password: \"test\") { token } }"
+}
+
+{
+	"query": "mutation { createEvent(eventInput: {title: \"work hard\" description:\"or does it\" price:25 date:\"2019-05-22T22:46:12.296Z\" }) { _id title} }"
+}
+
+{
+	"query" : "query { events { email } }"
+}
+
+{
+    "data": {
+        "login": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Y2U1Y2IzOTA3ZTFlNzA3ODE0NjkzYmYiLCJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpYXQiOjE1NTg1NjUwNjYsImV4cCI6MTU1ODU2ODY2Nn0.A2k685RMrVOMyAdD0hQn5Co7SUuLkyj-vYC0lJ8dPR0"
+        }
+    }
+}

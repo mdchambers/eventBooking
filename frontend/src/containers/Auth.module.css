@@ -1,0 +1,25 @@
+.authPage {
+  margin: 50px auto;
+  text-align: center;
+}
+
+.authForm {
+  max-width: 375px;
+  padding-bottom: 50px;
+  margin: 50px auto;
+}
+
+.authPage Button {
+  margin-top: 25px;
+  font: inherit;
+}
+
+.textField {
+
+  /* background-color: purple; */
+}
+
+.loginHeader {
+  text-align: left;
+  padding-bottom: 0px;
+}
