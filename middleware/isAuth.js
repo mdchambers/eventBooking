@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
+  console.log('authenticating');
   const authHeader = req.get('Authorization');
   if(!authHeader) {
     // No authentication data in header
@@ -8,6 +9,7 @@ module.exports = (req, res, next) => {
     return next();
   }
   const token = authHeader.split(' ')[1]; // Authorization: Bearer token
+  console.log(token);
   if(!token || token.trim() === ''){
     // Token not in authorization header, or is empty
     req.isAuth = false;
@@ -22,7 +24,7 @@ module.exports = (req, res, next) => {
     req.isAuth = false;
     return next();
   }
-
+  console.log(decodedToken);
   // Check if decodedToken truthy
   if(!decodedToken) {
     req.isAuth = false;

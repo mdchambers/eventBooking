@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
-import { deepOrange, lime } from "@material-ui/core/colors";
+// import { ThemeProvider } from "@material-ui/styles";
+import { deepOrange, blueGrey } from "@material-ui/core/colors";
 
 import AuthContext from "./context/auth-context";
 
@@ -14,13 +15,13 @@ import Events from "./containers/Events";
 import Bookings from "./containers/Bookings";
 import Logout from './containers/Logout';
 
+
 const theme = createMuiTheme({
   palette: {
     primary: deepOrange,
-    secondary: lime
+    secondary: blueGrey
   }
 });
-
 // TODO auth page
 // TODO auth protection
 // TODO view events
@@ -28,7 +29,9 @@ const theme = createMuiTheme({
 // TODO view bookings
 // TODO create booking
 // TODO delete booking
-function App() {
+const App = props => {
+
+
   const [authState, setAuthState] = useState({
     userId: null,
     token: null,
@@ -49,7 +52,7 @@ function App() {
       tokenExpiration: null
     });
   };
-
+  // console.log(props);
   return (
     <div className="App">
       <MuiThemeProvider theme={theme}>
