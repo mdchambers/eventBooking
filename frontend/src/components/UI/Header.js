@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 // import PropTypes from "prop-types";
 // import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -8,25 +8,35 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
+import AuthContext from "../../context/auth-context";
+
 import { Link, NavLink } from "react-router-dom";
 
 import classes from "./Header.module.css";
 
-// const styles = {
-//   root: {
-//     flexGrow: 1
-//   },
-//   grow: {
-//     flexGrow: 1
-//   },
-//   menuButton: {
-//     marginLeft: -12,
-//     marginRight: 20
-//   }
-// };
-
 function Header(props) {
-  // const { classes } = props;
+  const authData = useContext(AuthContext);
+
+  let authButton = (
+    <NavLink
+      className={classes.headerNav}
+      activeClassName={classes.active}
+      to="/auth"
+    >
+      <Button color="inherit">Login</Button>
+    </NavLink>
+  );
+  if (authData.userId) {
+    authButton = (
+      <NavLink
+        className={classes.headerNav}
+        activeClassName={classes.active}
+        to="/logout"
+      >
+        <Button color="inherit">Logout</Button>
+      </NavLink>
+    );
+  }
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="static">
@@ -38,7 +48,11 @@ function Header(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.loginHeader}>
+          <Typography
+            variant="h6"
+            color="inherit"
+            className={classes.loginHeader}
+          >
             <Link className={classes.headerNav} to="/">
               SparkEvent
             </Link>
@@ -57,13 +71,7 @@ function Header(props) {
           >
             <Button color="inherit">Bookings</Button>
           </NavLink>
-          <NavLink
-            className={classes.headerNav}
-            activeClassName={classes.active}
-            to="/auth"
-          >
-            <Button color="inherit">Login</Button>
-          </NavLink>
+          {authButton}
         </Toolbar>
       </AppBar>
     </div>
