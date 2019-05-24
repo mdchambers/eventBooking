@@ -76,7 +76,7 @@ const EventInput = props => {
         <Typography variant="h4">Upcoming Events</Typography>
         <Grid
           container
-          direction="column"
+          direction="column-reverse"
           alignItems="stretch"
           justify="space-between"
         >
