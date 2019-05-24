@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
@@ -13,8 +13,7 @@ import Auth from "./containers/Auth";
 import Home from "./containers/Home";
 import Events from "./containers/Events";
 import Bookings from "./containers/Bookings";
-import Logout from './containers/Logout';
-
+import Logout from "./containers/Logout";
 
 const theme = createMuiTheme({
   palette: {
@@ -30,22 +29,34 @@ const theme = createMuiTheme({
 // TODO create booking
 // TODO delete booking
 const App = props => {
-
-
   const [authState, setAuthState] = useState({
     userId: null,
     token: null,
     tokenExpiration: null
   });
 
+  // Check if auth data in local storage when mounted
+  useEffect(() => {
+    console.log('getting auth from storage');
+    const token = localStorage.getItem("token");
+    if (token) {
+      setAuthState({
+        userId: localStorage.getItem('userId'),
+        token: localStorage.getItem('token'),
+      })
+    }
+  }, []);
+
   const loginHandler = loginData => {
-    console.log("logging in")
+    console.log("logging in");
     console.log(loginData);
     setAuthState(loginData);
+    localStorage.setItem('token', loginData.token);
+    localStorage.setItem('userId', loginData.userId);
   };
 
   const logoutHandler = () => {
-    console.log("logging out")
+    console.log("logging out");
     setAuthState({
       userId: null,
       token: null,
@@ -76,6 +87,6 @@ const App = props => {
       </MuiThemeProvider>
     </div>
   );
-}
+};
 
 export default App;

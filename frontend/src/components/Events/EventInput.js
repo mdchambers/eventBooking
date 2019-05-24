@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 
 import AuthContext from "../../context/auth-context";
+import fetchQl from "../../helpers/fetchQL";
 
 import {
   Paper,
@@ -31,9 +32,8 @@ const EventInput = props => {
     });
   };
 
-  const submitHandler = event => {
+  const submitHandler = async event => {
     event.preventDefault();
-    console.log(eventData);
     const price = +eventData.price;
     const reqBody = {
       query: `
@@ -57,29 +57,13 @@ const EventInput = props => {
         }
       `
     };
-    console.log(JSON.stringify(reqBody));
-    fetch("http://localhost:8000/graphql", {
-      method: "POST",
-      body: JSON.stringify(reqBody),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + authData.token
-      }
-    })
-      .then(res => {
-        // Catch errors from backend
-        if (res.status !== 200 && res.status !== 201) {
-          throw new Error("failed");
-        }
-        return res.json();
-      })
-      .then(resData => {
-        console.log(resData);
-      })
-      .catch(err => {
-        // Only local errors (i.e. network connectivity), not errors thrown by backend caught here
-        console.log(err);
-      });
+
+    try {
+      const res = await fetchQl(reqBody, authData.token);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -1,15 +1,16 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  console.log('authenticating');
+  // console.log('authenticating');
   const authHeader = req.get('Authorization');
+  // console.log(authHeader);
   if(!authHeader) {
     // No authentication data in header
     req.isAuth = false;
     return next();
   }
   const token = authHeader.split(' ')[1]; // Authorization: Bearer token
-  console.log(token);
+  // console.log(token);
   if(!token || token.trim() === ''){
     // Token not in authorization header, or is empty
     req.isAuth = false;
@@ -20,11 +21,11 @@ module.exports = (req, res, next) => {
   try {
     decodedToken = jwt.verify(token, "somesupersecretkeythatyoucannotguess");
   } catch (error) {
-    console.error("Token decoding failed");
+    // console.error("Token decoding failed");
     req.isAuth = false;
     return next();
   }
-  console.log(decodedToken);
+  // console.log(decodedToken);
   // Check if decodedToken truthy
   if(!decodedToken) {
     req.isAuth = false;
